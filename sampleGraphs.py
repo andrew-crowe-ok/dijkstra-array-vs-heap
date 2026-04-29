@@ -1,5 +1,5 @@
+import random # used to generate Dense Graph 3
 # All sample graphs as they appear in Section 5 of Project 2.
-# Still need to generate our own DENSE_GRAPH_THREE.
 
 # create adjacency list
 def add_adj_list_edge(nodes, elements):
@@ -103,7 +103,39 @@ ADJ_MAT_DENSE_GRAPH_TWO = add_adj_mat_edge(DENSE_GRAPH_TWO, DENSE_EDGES_WEIGHTED
 print("Adj Matrix Dense Graph Two: ")
 print_adj_mat(ADJ_MAT_DENSE_GRAPH_TWO)
 
-DENSE_GRAPH_THREE = {}
-DENSE_EDGES_THREE= [
+# Randomly generated graph
+# build random (seeded for repeatable results)
+random.seed(37)
+DENSE_GRAPH_THREE = set()
 
-]
+# generate random vertex
+rand_v = random.randint(10, 20)
+#print(rand_v)
+
+# create nodes
+i = 0
+while i < rand_v:
+    DENSE_GRAPH_THREE.add(i)
+    i += 1
+#print(DENSE_GRAPH_THREE)
+
+# generate edges
+DENSE_EDGES_THREE = [[] for _ in range(rand_v)]
+# connects all the edges
+for i in range(rand_v - 1):
+    # create straight line of nodes
+    # 0 - 1 - 2 - 3 ... rand_v
+    # spanning tree, no cycles no nodes left unconnected 
+    DENSE_EDGES_THREE.append((i, i + 1, random.randint(1, rand_v)))
+    
+for i in range(rand_v):
+    DENSE_EDGES_THREE[i] = (random.randint(0, rand_v - 1), # start node
+                            random.randint(0, rand_v - 1), # end node
+                            random.randint(1, rand_v))     # weight
+#print(DENSE_EDGES_THREE)
+ADJ_LIST_DENSE_GRAPH_THREE = add_adj_list_edge(DENSE_GRAPH_THREE, DENSE_EDGES_THREE)
+print("Adj List Dense Graph Three: ")
+print_adj_list(ADJ_LIST_DENSE_GRAPH_THREE)
+ADJ_MAT_DENSE_GRAPH_THREE = add_adj_mat_edge(DENSE_GRAPH_THREE, DENSE_EDGES_THREE)
+print("Adj Matrix Dense Graph Three: ")
+print_adj_mat(ADJ_MAT_DENSE_GRAPH_THREE)
