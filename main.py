@@ -1,4 +1,7 @@
+import sys
+import argparse
 from priority_queue import DijkstraMinHeap
+from dijkstra import pq_dijkstra
 from graph_utils import add_adj_list_edge, print_adj_list
 from graph_data import (
     SPARSE_NODES_ONE, SPARSE_EDGES_ONE,
@@ -8,7 +11,63 @@ from graph_data import (
     get_dense_graph_three
 )
 
-def main():
+def run_array_dijkstra_matrix():
+    # Placeholder for Version 1 using Adjacency Matrix
+    print("Array-Based Dijkstra (Adjacency Matrix) - Not yet implemented.")
+
+def run_array_dijkstra_list():
+    # Placeholder for Version 1 using Adjacency List
+    print("Array-Based Dijkstra (Adjacency List) - Not yet implemented.")
+
+def run_pq_dijkstra():
+
+    test_graphs = get_test_graphs()
+
+    for name, nodes, edges in test_graphs:
+        print(f"\n{'='*40}")
+        print(f"RUNNING PQ DIJKSTRA: {name}")
+        print(f"{'='*40}")
+        
+        # Build the adjacency list, map the set of vertices to an indexed list of nodes
+        adj_list, node_index = add_adj_list_edge(nodes, edges)
+        
+        # Create a reverse index to map node indices back to original node names
+        reverse_index = {v: k for k, v in node_index.items()}
+        
+        # Select the first node in the sorted set as the source vertex
+        src_node = sorted(list(nodes))[0]
+        src_idx = node_index[src_node]
+        
+        # Execute Dijkstra's algorithm to get shortest paths and parent array
+        distances, parents = pq_dijkstra(adj_list, len(nodes), src_idx)
+        
+        # Output the shortest path results
+        print(f"Shortest Paths from Source '{src_node}':")
+        for i in range(len(nodes)):
+            target_node = reverse_index[i]
+            dist = distances[i]
+            
+            # Handle unreachable nodes
+            if dist == sys.maxsize:
+                print(f"Path to {target_node}: Unreachable")
+            else:
+                # Reconstruct the path using the parent array
+                path = []
+                curr = i
+                while curr != -1:
+                    path.append(reverse_index[curr])
+                    curr = parents[curr]
+                path.reverse()
+                
+                # Format and print the final path string
+                path_str = " -> ".join(str(n) for n in path)
+                print(f"Path to {target_node}: {path_str} (Distance: {dist})")
+
+def run_performance_experiments():
+    # Placeholder for 4.4 Step 4: Record Experimental Results
+    print("Performance & Memory Experiments - Not yet implemented.")
+
+def get_test_graphs():
     # Generate a third dense graph
     dyn_nodes, dyn_edges = get_dense_graph_three()
 
@@ -20,6 +79,11 @@ def main():
         ("Dense Graph Two", DENSE_NODES_TWO, DENSE_EDGES_TWO),
         ("Dynamic Dense Graph", dyn_nodes, dyn_edges)
     ]
+    return test_graphs
+
+def test_priority_queue():
+    # Retrieve the grouped list of test graphs
+    test_graphs = get_test_graphs()
 
     # Loop through each graph and print debug output
     for name, nodes, edges in test_graphs:
@@ -45,7 +109,7 @@ def main():
             mock_dist = vert_count - v_idx
             pq.insertKey(v_idx, mock_dist)
             
-        # Force the the lowest priority element in the 
+        # Force the lowest priority element in the 
         # pq to the front of the pq/top of the heap
         if not pq.is_empty():
             pq.decreaseKey(0, -1)
@@ -57,6 +121,30 @@ def main():
         while not pq.is_empty():
             item = pq.extractMin()
             print(f"Vertex Index: {item[1]} | Distance: {item[0]}")
+
+def main():
+    # Setup argument parser to select execution mode
+    parser = argparse.ArgumentParser(description="CS361 Project 2: Dijkstra Implementations")
+    parser.add_argument(
+        'mode', 
+        choices=['test_pq', 'pq_dijkstra', 'array_matrix', 'array_list', 'benchmark'],
+        help="Select the execution mode."
+    )
+    
+    # Parse command line arguments
+    args = parser.parse_args()
+
+    # Execute the chosen mode
+    if args.mode == 'test_pq':
+        test_priority_queue()
+    elif args.mode == 'pq_dijkstra':
+        run_pq_dijkstra()
+    elif args.mode == 'array_matrix':
+        run_array_dijkstra_matrix()
+    elif args.mode == 'array_list':
+        run_array_dijkstra_list()
+    elif args.mode == 'benchmark':
+        run_performance_experiments()
 
 if __name__ == "__main__":
     main()

@@ -1,5 +1,6 @@
 # create adjacency list
 def add_adj_list_edge(nodes, elements):
+    
     # set number to nodes
     # sorted(list()) is retained to ensure sets map to deterministic indices.
     node_index = {}
