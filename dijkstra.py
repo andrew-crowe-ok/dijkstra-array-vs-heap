@@ -1,10 +1,10 @@
 import sys
 from priority_queue import DijkstraMinHeap
 
-def dijkstra_array_matrix(adj_mat, num_vertices, src_vertex):
+def array_matrix_dijkstra(adj_mat, num_vertices, src_vertex):
     pass
 
-def dijkstra_array_list(adj_list, num_vertices, src_vertex):
+def array_list_dijkstra(adj_list, num_vertices, src_vertex):
     pass
 
 def pq_dijkstra(adj_list, num_vertices, src_vertex):
