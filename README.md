@@ -18,13 +18,14 @@ Execute the program from the command line by passing the desired operating mode:
 * `array_list`: Runs the Array-Based (Adjacency List) version (WIP).
 * `benchmark`: Runs performance and memory measurements across all implementations (WIP).
 
-## Progress Tracker
-### 4.1  
-Introduction/background draft complete - Andrew
+## Progress Tracker  
+### 4.1
+* Introduction/background draft complete - *Andrew*  
 ### 4.2-4.3
-Adjacency list and matrix implemented - Nathan
-Random dense graph generator implemented - Nathan
-Min-heap priority queue implemented - Andrew
+* Adjacency list and matrix implemented - *Nathan*
+* Random dense graph generator implemented - *Nathan*
+* Min-heap priority queue implemented - *Andrew*
+* PQ Dijkstra implemented - *Andrew*
 
 ## TODO
 
