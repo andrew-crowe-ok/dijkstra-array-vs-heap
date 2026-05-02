@@ -21,7 +21,7 @@ def run_array_dijkstra_list():
     # Placeholder for Version 1 using Adjacency List
     print("Array-Based Dijkstra (Adjacency List) - Not yet implemented.")
 
-def run_dijkstra(dijkstra_type):
+def run_dijkstra(dijkstra_type, adj_type):
     test_graphs = get_test_graphs()
 
     for name, nodes, edges in test_graphs:
@@ -42,7 +42,7 @@ def run_dijkstra(dijkstra_type):
         # Build the adjacency list, map the set of vertices to an indexed list of nodes
         adj_list, node_index = add_adj_list_edge(nodes, edges)
         # currently just for testing
-        #adj_mat, node_index = add_adj_mat_edge(nodes, edges)
+        adj_mat, node_index = add_adj_mat_edge(nodes, edges)
         
         # Create a reverse index to map node indices back to original node names
         reverse_index = {v: k for k, v in node_index.items()}
@@ -57,7 +57,8 @@ def run_dijkstra(dijkstra_type):
             distances, parents = pq_dijkstra(adj_list, len(nodes), src_idx)
         elif(dijkstra_type == 'a'):
             print("RUNNING ARR") # debug, make sure right one is running
-            distances, parents = arr_dijkstra(adj_list, 'l', len(nodes), src_idx)
+            # TODO: Matrix verison is broken
+            distances, parents = arr_dijkstra(adj_list, adj_type, len(nodes), src_idx)
         
         # Output the shortest path results
         print(f"Shortest Paths from Source '{src_node}':")
@@ -145,7 +146,7 @@ def main():
     parser = argparse.ArgumentParser(description="CS361 Project 2: Dijkstra Implementations")
     parser.add_argument(
         'mode', 
-        choices=['test_pq', 'pq_dijkstra', 'test_arr', 'arr_dijkstra', 'array_matrix', 'array_list', 'benchmark'],
+        choices=['test_pq', 'pq_dijkstra', 'test_arr', 'arr_dijkstra_list', 'arr_dijkstra_mat', 'array_matrix', 'array_list', 'benchmark'],
         help="Select the execution mode."
     )
     
@@ -156,9 +157,11 @@ def main():
     if args.mode == 'test_pq':
         test_priority_queue()
     elif args.mode == 'pq_dijkstra':
-        run_dijkstra('p')
-    elif args.mode == 'arr_dijkstra':
-        run_dijkstra('a') 
+        run_dijkstra('p', 'l')
+    elif args.mode == 'arr_dijkstra_list':
+        run_dijkstra('a', 'l') 
+    elif args.mode == 'arr_dijkstra_mat':
+        run_dijkstra('a', 'm') # TODO: currently broken
     elif args.mode == 'array_matrix':
         run_array_dijkstra_matrix()
     elif args.mode == 'array_list':

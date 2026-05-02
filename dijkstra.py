@@ -68,9 +68,9 @@ def arr_list(adj_list, u, dist, parent):
             dist[v] = dist[u] + weight
             parent[v] = u
 
+# TODO: broken, pulling a tuple from somewhere when it  shouldn't be
 def arr_mat(adj_matrix, u, dist, num_vertices, parent):
-    # TODO: Currently breaks since nodes are not always integers
-    for v, weight in num_vertices:
+    for v in range(num_vertices):
         weight = adj_matrix[u][v]
         if weight > 0:
             if dist[u] + weight < dist[v]:
