@@ -20,14 +20,23 @@ def run_array_dijkstra_list():
     # Placeholder for Version 1 using Adjacency List
     print("Array-Based Dijkstra (Adjacency List) - Not yet implemented.")
 
-def run_pq_dijkstra():
-
+def run_dijkstra(dijkstra_type):
     test_graphs = get_test_graphs()
 
     for name, nodes, edges in test_graphs:
-        print(f"\n{'='*40}")
-        print(f"RUNNING PQ DIJKSTRA: {name}")
-        print(f"{'='*40}")
+        # Both dijkstra can use this code, only difference is printing & funct calls
+        if(dijkstra_type == 'p'):
+            print(f"\n{'='*40}")
+            print(f"RUNNING PQ DIJKSTRA: {name}")
+            print(f"{'='*40}")
+        elif(dijkstra_type == 'a'):
+            print(f"\n{'='*40}")
+            print(f"RUNNING ARR DIJKSTRA: {name}")
+            print(f"{'='*40}")
+        else:
+            # error in case call is made incorrectly for debug, should never be seen by user
+            sys.exit("ERROR! Function run_dijkstra was called improperly!!\n"
+                      "Should be called with 'a' for array or 'p' for prority queue respectively!")
         
         # Build the adjacency list, map the set of vertices to an indexed list of nodes
         adj_list, node_index = add_adj_list_edge(nodes, edges)
@@ -40,7 +49,12 @@ def run_pq_dijkstra():
         src_idx = node_index[src_node]
         
         # Execute Dijkstra's algorithm to get shortest paths and parent array
-        distances, parents = pq_dijkstra(adj_list, len(nodes), src_idx)
+        if (dijkstra_type == 'p'):
+            print("RUNNING PQ") # debug, make sure right one is running
+            distances, parents = pq_dijkstra(adj_list, len(nodes), src_idx)
+        elif(dijkstra_type == 'a'):
+            print("RUNNING ARR") # debug, make sure right one is running
+            distances, parents = arr_dijkstra(adj_list, len(nodes), src_idx)
         
         # Output the shortest path results
         print(f"Shortest Paths from Source '{src_node}':")
@@ -63,37 +77,6 @@ def run_pq_dijkstra():
                 # Format and print the final path string
                 path_str = " -> ".join(str(n) for n in path)
                 print(f"Path to {target_node}: {path_str} (Distance: {dist})")
-
-def run_arr_dijkstra():
-    test_graphs = get_test_graphs()
-
-    for name, nodes, edges in test_graphs:
-        print(f"\n{'='*40}")
-        print(f"RUNNING ARR DIJKSTRA: {name}")
-        print(f"{'='*40}")
-        
-        # Build the adjacency list, map the set of vertices to an indexed list of nodes
-        adj_list, node_index = add_adj_list_edge(nodes, edges)
-        
-        # Create a reverse index to map node indices back to original node names
-        reverse_index = {v: k for k, v in node_index.items()}
-        
-        # Select the first node in the sorted set as the source vertex
-        src_node = sorted(list(nodes))[0]
-        src_idx = node_index[src_node]
-        
-        # Execute Dijkstra's algorithm to get shortest paths and parent array
-        distances = arr_dijkstra(adj_list, len(nodes), src_idx)
-        
-        # Output the shortest path results
-        print(f"Shortest Paths from Source '{src_node}':")
-        # TODO: FIX PATHING
-        # !! CURRENTLY THIS ONLY SHOWS DISTANCE, PATH IS NOT RECONSTRUCTED !!
-        for i in range(len(nodes)):
-            dist = distances[i]
-            node_name = reverse_index[i]
-            dist_str = str(dist) if dist != sys.maxsize else "unreachable"
-            print(f"  {src_node} -> {node_name}: {dist_str}")
 
 def run_performance_experiments():
     # Placeholder for 4.4 Step 4: Record Experimental Results
@@ -170,9 +153,9 @@ def main():
     if args.mode == 'test_pq':
         test_priority_queue()
     elif args.mode == 'pq_dijkstra':
-        run_pq_dijkstra()
+        run_dijkstra('p')
     elif args.mode == 'arr_dijkstra':
-        run_arr_dijkstra() 
+        run_dijkstra('a') 
     elif args.mode == 'array_matrix':
         run_array_dijkstra_matrix()
     elif args.mode == 'array_list':

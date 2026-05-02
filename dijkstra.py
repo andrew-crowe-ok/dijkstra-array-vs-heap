@@ -34,8 +34,9 @@ def pq_dijkstra(adj_list, num_vertices, src_vertex):
     return distances, parents # Return both arrays
 
 def arr_dijkstra(adj_list, num_vertices, src_vertex):
-    dist = [sys.maxsize] * num_vertices
-    visited = [False] * num_vertices
+    dist = [sys.maxsize] * num_vertices # Initialize path weight
+    visited = [False] * num_vertices    # Has the node been vistied
+    parent = [-1] * num_vertices        # Initialize parents array
     dist[src_vertex] = 0
 
     for _ in range(num_vertices):
@@ -51,6 +52,7 @@ def arr_dijkstra(adj_list, num_vertices, src_vertex):
         for v, weight in adj_list[u]:
             if dist[u] + weight < dist[v]:
                 dist[v] = dist[u] + weight
+                parent[v] = u
         '''
         Matrix version should work with:
         for v, weight in num_vertices:
@@ -58,8 +60,8 @@ def arr_dijkstra(adj_list, num_vertices, src_vertex):
             if weight > 0:
                 if dist[u] + weight < dist[v]:
                     dist[v] = dist[u] + weight
+                    parent[v] = u
         Likely will be put in seperate funciton,
         fix adj list first most of this is reuseable
         '''
-    # TODO: DOUBLE CHECK, DISTANCES SEEM TO BE 1 OFF
-    return dist
+    return dist, parent
