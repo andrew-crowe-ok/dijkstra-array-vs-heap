@@ -14,6 +14,7 @@ Execute the program from the command line by passing the desired operating mode:
 
 * `test_pq`: Runs the priority queue validation tests.
 * `pq_dijkstra`: Executes the Min-Heap/Priority Queue version of Dijkstra's algorithm.
+* `arr_dijkstra`: Executes the Array based version of Dijkstra's algorithm (WIP).
 * `array_matrix`: Runs the Array-Based (Adjacency Matrix) version (WIP).
 * `array_list`: Runs the Array-Based (Adjacency List) version (WIP).
 * `benchmark`: Runs performance and memory measurements across all implementations (WIP).
@@ -29,6 +30,6 @@ Execute the program from the command line by passing the desired operating mode:
 
 ## TODO
 
-* **4.2 - 4.3** Implement array-based Dijkstra (adj. list and adj. matrix versions)
+* **4.2 - 4.3** Fix printing of pathing for adj list array, double check functions. Implement adj matrix along side it
 * **4.4** Benchmark algorithms according to Section 6
 * **4.5** Write analysis according to Section 7

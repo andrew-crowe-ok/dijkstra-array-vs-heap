@@ -32,3 +32,34 @@ def pq_dijkstra(adj_list, num_vertices, src_vertex):
                     pq.decreaseKey(neighbor, new_dist)
                     
     return distances, parents # Return both arrays
+
+def arr_dijkstra(adj_list, num_vertices, src_vertex):
+    dist = [sys.maxsize] * num_vertices
+    visited = [False] * num_vertices
+    dist[src_vertex] = 0
+
+    for _ in range(num_vertices):
+        u = -1
+        for v in range(num_vertices):
+            if not visited[v] and (u == -1 or dist[v] < dist[u]):
+                u = v
+        
+        if dist[u] == sys.maxsize : break
+
+        visited[u] = True
+
+        for v, weight in adj_list[u]:
+            if dist[u] + weight < dist[v]:
+                dist[v] = dist[u] + weight
+        '''
+        Matrix version should work with:
+        for v, weight in num_vertices:
+            weight = adj_matrix[u][v]
+            if weight > 0:
+                if dist[u] + weight < dist[v]:
+                    dist[v] = dist[u] + weight
+        Likely will be put in seperate funciton,
+        fix adj list first most of this is reuseable
+        '''
+    # TODO: DOUBLE CHECK, DISTANCES SEEM TO BE 1 OFF
+    return dist
