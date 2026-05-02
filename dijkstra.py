@@ -33,7 +33,7 @@ def pq_dijkstra(adj_list, num_vertices, src_vertex):
                     
     return distances, parents # Return both arrays
 
-def arr_dijkstra(adj_list, num_vertices, src_vertex):
+def arr_dijkstra(adj, adj_type, num_vertices, src_vertex):
     dist = [sys.maxsize] * num_vertices # Initialize path weight
     visited = [False] * num_vertices    # Has the node been vistied
     parent = [-1] * num_vertices        # Initialize parents array
@@ -49,19 +49,30 @@ def arr_dijkstra(adj_list, num_vertices, src_vertex):
 
         visited[u] = True
 
-        for v, weight in adj_list[u]:
+        if adj_type == 'l':
+            #print("RUNNING ADJ LIST")
+            arr_list(adj, u, dist, parent)
+        elif adj_type == 'm':
+            print("RUNNING ADJ MATRIX")
+            arr_mat(adj, u, dist, num_vertices, parent)
+        else:
+            # Error in case call is made incorrectly for debug, should never be seen by user
+            sys.exit("ERROR! Function arr_dijkstra was called improperly!!\n"
+                      "Should be called with 'l' for list or 'm' for matrix respectively!")
+
+    return dist, parent
+
+def arr_list(adj_list, u, dist, parent):
+    for v, weight in adj_list[u]:
+        if dist[u] + weight < dist[v]:
+            dist[v] = dist[u] + weight
+            parent[v] = u
+
+def arr_mat(adj_matrix, u, dist, num_vertices, parent):
+    # TODO: Currently breaks since nodes are not always integers
+    for v, weight in num_vertices:
+        weight = adj_matrix[u][v]
+        if weight > 0:
             if dist[u] + weight < dist[v]:
                 dist[v] = dist[u] + weight
                 parent[v] = u
-        '''
-        Matrix version should work with:
-        for v, weight in num_vertices:
-            weight = adj_matrix[u][v]
-            if weight > 0:
-                if dist[u] + weight < dist[v]:
-                    dist[v] = dist[u] + weight
-                    parent[v] = u
-        Likely will be put in seperate funciton,
-        fix adj list first most of this is reuseable
-        '''
-    return dist, parent

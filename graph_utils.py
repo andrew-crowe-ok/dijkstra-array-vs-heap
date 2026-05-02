@@ -49,7 +49,7 @@ def add_adj_mat_edge(nodes, elements):
         adj_mat[row][col] = weight
         adj_mat[col][row] = weight # for undirected graphs
 
-    return adj_mat
+    return adj_mat, node_index
 
 # print matrix
 def print_adj_mat(adj_mat):

@@ -4,6 +4,7 @@ from priority_queue import DijkstraMinHeap
 from dijkstra import pq_dijkstra
 from dijkstra import arr_dijkstra
 from graph_utils import add_adj_list_edge, print_adj_list
+from graph_utils import add_adj_mat_edge, print_adj_mat
 from graph_data import (
     SPARSE_NODES_ONE, SPARSE_EDGES_ONE,
     SPARSE_NODES_TWO, SPARSE_EDGES_TWO,
@@ -34,12 +35,14 @@ def run_dijkstra(dijkstra_type):
             print(f"RUNNING ARR DIJKSTRA: {name}")
             print(f"{'='*40}")
         else:
-            # error in case call is made incorrectly for debug, should never be seen by user
+            # Error in case call is made incorrectly for debug, should never be seen by user
             sys.exit("ERROR! Function run_dijkstra was called improperly!!\n"
                       "Should be called with 'a' for array or 'p' for prority queue respectively!")
         
         # Build the adjacency list, map the set of vertices to an indexed list of nodes
         adj_list, node_index = add_adj_list_edge(nodes, edges)
+        # currently just for testing
+        #adj_mat, node_index = add_adj_mat_edge(nodes, edges)
         
         # Create a reverse index to map node indices back to original node names
         reverse_index = {v: k for k, v in node_index.items()}
@@ -54,7 +57,7 @@ def run_dijkstra(dijkstra_type):
             distances, parents = pq_dijkstra(adj_list, len(nodes), src_idx)
         elif(dijkstra_type == 'a'):
             print("RUNNING ARR") # debug, make sure right one is running
-            distances, parents = arr_dijkstra(adj_list, len(nodes), src_idx)
+            distances, parents = arr_dijkstra(adj_list, 'l', len(nodes), src_idx)
         
         # Output the shortest path results
         print(f"Shortest Paths from Source '{src_node}':")
