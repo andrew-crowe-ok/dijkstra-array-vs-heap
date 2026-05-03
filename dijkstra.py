@@ -63,10 +63,10 @@ def arr_list(adj_list, u, dist, parent):
             parent[v] = u
 
 # TODO: broken, pulling a tuple from somewhere when it  shouldn't be
-# I attempted to fix this. See my edit and comment below - Andrew
+# FIXED(?) - 
 def arr_mat(adj_matrix, u, dist, num_vertices, parent):
     for v in range(num_vertices):
-        weight = adj_matrix[u][v][1]  # added [1] to access the element at index 1 inside of a tuple
+        weight = adj_matrix[u][v]
         if weight > 0:
             if dist[u] + weight < dist[v]:
                 dist[v] = dist[u] + weight

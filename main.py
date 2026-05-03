@@ -1,8 +1,7 @@
 import sys
 import argparse
 from priority_queue import DijkstraMinHeap
-from dijkstra import pq_dijkstra
-from dijkstra import arr_dijkstra
+from dijkstra import pq_dijkstra, arr_dijkstra
 from graph_utils import add_adj_list_edge, print_adj_list
 from graph_utils import add_adj_mat_edge, print_adj_mat
 from graph_data import (
@@ -44,13 +43,16 @@ def run_dijkstra(dijkstra_type, adj_type):
         src_idx = node_index[src_node]
         
         # Execute Dijkstra's algorithm to get shortest paths and parent array
-        if (dijkstra_type == 'p'):
-            print("RUNNING PQ") # debug, make sure right one is running
+        if(dijkstra_type == 'p'):
+            print("RUNNING PQ")
             distances, parents = pq_dijkstra(adj_list, len(nodes), src_idx)
+        # FIX: added a nested if/elif here, the arr_dijkstra_mat command no longer crashes
         elif(dijkstra_type == 'a'):
-            print("RUNNING ARR") # debug, make sure right one is running
-            # TODO: Matrix verison is broken
-            distances, parents = arr_dijkstra(adj_list, adj_type, len(nodes), src_idx)
+            if(adj_type == 'l'):
+              print("RUNNING ARR")
+              distances, parents = arr_dijkstra(adj_list, adj_type, len(nodes), src_idx)
+            elif(adj_type == 'm'):
+              distances, parents = arr_dijkstra(adj_mat, adj_type, len(nodes), src_idx)
         
         # Output the shortest path results
         print(f"Shortest Paths from Source '{src_node}':")
@@ -138,7 +140,7 @@ def main():
     parser = argparse.ArgumentParser(description="CS361 Project 2: Dijkstra Implementations")
     parser.add_argument(
         'mode', 
-        choices=['test_pq', 'pq_dijkstra', 'test_arr', 'arr_dijkstra_list', 'arr_dijkstra_mat', 'benchmark'],
+        choices=['test_pq', 'pq_dijkstra', 'arr_dijkstra_list', 'arr_dijkstra_mat', 'benchmark'],
         help="Select the execution mode."
     )
     
@@ -154,10 +156,6 @@ def main():
         run_dijkstra('a', 'l') 
     elif args.mode == 'arr_dijkstra_mat':
         run_dijkstra('a', 'm') # TODO: currently broken
-    elif args.mode == 'array_matrix':
-        run_array_dijkstra_matrix()
-    elif args.mode == 'array_list':
-        run_array_dijkstra_list()
     elif args.mode == 'benchmark':
         run_performance_experiments()
 
