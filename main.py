@@ -13,14 +13,6 @@ from graph_data import (
     get_dense_graph_three
 )
 
-def run_array_dijkstra_matrix():
-    # Placeholder for Version 1 using Adjacency Matrix
-    print("Array-Based Dijkstra (Adjacency Matrix) - Not yet implemented.")
-
-def run_array_dijkstra_list():
-    # Placeholder for Version 1 using Adjacency List
-    print("Array-Based Dijkstra (Adjacency List) - Not yet implemented.")
-
 def run_dijkstra(dijkstra_type, adj_type):
     test_graphs = get_test_graphs()
 
@@ -146,7 +138,7 @@ def main():
     parser = argparse.ArgumentParser(description="CS361 Project 2: Dijkstra Implementations")
     parser.add_argument(
         'mode', 
-        choices=['test_pq', 'pq_dijkstra', 'test_arr', 'arr_dijkstra_list', 'arr_dijkstra_mat', 'array_matrix', 'array_list', 'benchmark'],
+        choices=['test_pq', 'pq_dijkstra', 'test_arr', 'arr_dijkstra_list', 'arr_dijkstra_mat', 'benchmark'],
         help="Select the execution mode."
     )
     

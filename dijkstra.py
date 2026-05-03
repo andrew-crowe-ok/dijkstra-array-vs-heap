@@ -1,12 +1,6 @@
 import sys
 from priority_queue import DijkstraMinHeap
 
-def array_matrix_dijkstra(adj_mat, num_vertices, src_vertex):
-    pass
-
-def array_list_dijkstra(adj_list, num_vertices, src_vertex):
-    pass
-
 def pq_dijkstra(adj_list, num_vertices, src_vertex):
     distances = [sys.maxsize] * num_vertices
     parents = [-1] * num_vertices # Initialize parents array
@@ -69,9 +63,10 @@ def arr_list(adj_list, u, dist, parent):
             parent[v] = u
 
 # TODO: broken, pulling a tuple from somewhere when it  shouldn't be
+# I attempted to fix this. See my edit and comment below - Andrew
 def arr_mat(adj_matrix, u, dist, num_vertices, parent):
     for v in range(num_vertices):
-        weight = adj_matrix[u][v]
+        weight = adj_matrix[u][v][1]  # added [1] to access the element at index 1 inside of a tuple
         if weight > 0:
             if dist[u] + weight < dist[v]:
                 dist[v] = dist[u] + weight
