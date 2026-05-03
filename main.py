@@ -44,14 +44,16 @@ def run_dijkstra(dijkstra_type, adj_type):
         
         # Execute Dijkstra's algorithm to get shortest paths and parent array
         if(dijkstra_type == 'p'):
-            print("RUNNING PQ")
+            #print("PQ - ADJ LIST")
             distances, parents = pq_dijkstra(adj_list, len(nodes), src_idx)
-        # FIX: added a nested if/elif here, the arr_dijkstra_mat command no longer crashes
         elif(dijkstra_type == 'a'):
+            # FIX: added a nested if/elif here, ensuring that the
+            # correct adjacency structure is passed to arr_dijkstra()
             if(adj_type == 'l'):
-              print("RUNNING ARR")
+              #print("ARR - ADJ LIST")
               distances, parents = arr_dijkstra(adj_list, adj_type, len(nodes), src_idx)
             elif(adj_type == 'm'):
+              #print("ARR - ADJ MAT")
               distances, parents = arr_dijkstra(adj_mat, adj_type, len(nodes), src_idx)
         
         # Output the shortest path results
@@ -77,8 +79,9 @@ def run_dijkstra(dijkstra_type, adj_type):
                 print(f"Path to {target_node}: {path_str} (Distance: {dist})")
 
 def run_performance_experiments():
-    # Placeholder for 4.4 Step 4: Record Experimental Results
-    print("Performance & Memory Experiments - Not yet implemented.")
+    from benchmarker import GraphBenchmarker
+    bench = GraphBenchmarker()
+    bench.run_benchmarks()
 
 def get_test_graphs():
     # Generate a third dense graph
@@ -155,7 +158,7 @@ def main():
     elif args.mode == 'arr_dijkstra_list':
         run_dijkstra('a', 'l') 
     elif args.mode == 'arr_dijkstra_mat':
-        run_dijkstra('a', 'm') # TODO: currently broken
+        run_dijkstra('a', 'm')
     elif args.mode == 'benchmark':
         run_performance_experiments()
 

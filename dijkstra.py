@@ -47,7 +47,7 @@ def arr_dijkstra(adj, adj_type, num_vertices, src_vertex):
             #print("RUNNING ADJ LIST")
             arr_list(adj, u, dist, parent)
         elif adj_type == 'm':
-            print("RUNNING ADJ MATRIX")
+            #print("RUNNING ADJ MATRIX")
             arr_mat(adj, u, dist, num_vertices, parent)
         else:
             # Error in case call is made incorrectly for debug, should never be seen by user
@@ -62,8 +62,6 @@ def arr_list(adj_list, u, dist, parent):
             dist[v] = dist[u] + weight
             parent[v] = u
 
-# TODO: broken, pulling a tuple from somewhere when it  shouldn't be
-# FIXED(?) - 
 def arr_mat(adj_matrix, u, dist, num_vertices, parent):
     for v in range(num_vertices):
         weight = adj_matrix[u][v]

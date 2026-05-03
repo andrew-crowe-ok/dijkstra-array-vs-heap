@@ -3,10 +3,13 @@
     {
       "name": "Default",
       "files": [
-        "local_heap.py",
         ".vscode/changelists.json",
+        "benchmarker.py",
+        "main.py",
         "dijkstra.py",
-        "main.py"
+        "benchmark_results.csv",
+        "Rplot.png",
+        "graphs.r"
       ]
     }
   ],
