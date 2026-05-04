@@ -229,7 +229,7 @@ def main():
               print(f"Please use one of the valid execution modes.")
               print(f"Run 'python main.py --help' to see all available commands.\n")
           else:
-              print(f"\n❌ ERROR: {message}\n")
+              print(f"\nERROR: {message}\n")
           sys.exit(1)
           
     parser.error = custom_error
