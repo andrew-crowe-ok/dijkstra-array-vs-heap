@@ -1,10 +1,10 @@
 import sys
 import argparse
-from priority_queue import DijkstraMinHeap
-from dijkstra import pq_dijkstra, arr_dijkstra
-from graph_utils import add_adj_list_edge, print_adj_list
-from graph_utils import add_adj_mat_edge, print_adj_mat
-from graph_data import (
+from src.priority_queue import DijkstraMinHeap
+from src.dijkstra import pq_dijkstra, arr_dijkstra
+from src.graph_utils import add_adj_list_edge, print_adj_list
+from src.graph_utils import add_adj_mat_edge, print_adj_mat
+from src.graph_data import (
     SPARSE_NODES_ONE, SPARSE_EDGES_ONE,
     SPARSE_NODES_TWO, SPARSE_EDGES_TWO,
     DENSE_NODES_ONE, DENSE_EDGES_ONE,
@@ -17,14 +17,22 @@ def run_dijkstra(dijkstra_type, adj_type):
 
     for name, nodes, edges in test_graphs:
         # Both dijkstra can use this code, only difference is printing & funct calls
-        if(dijkstra_type == 'p'):
+        if dijkstra_type == 'p':
             print(f"\n{'='*40}")
-            print(f"RUNNING PQ DIJKSTRA: {name}")
+            print(f"{'RUNNING MINHEAP DIJKSTRA':^40}")
+            print(f"{name:^40}")
             print(f"{'='*40}")
-        elif(dijkstra_type == 'a'):
-            print(f"\n{'='*40}")
-            print(f"RUNNING ARR DIJKSTRA: {name}")
-            print(f"{'='*40}")
+        elif dijkstra_type == 'a':
+            if adj_type == 'l':
+                print(f"\n{'='*40}")
+                print(f"{'RUNNING ARR (ADJ LIST) DIJKSTRA':^40}")
+                print(f"{name:^40}")
+                print(f"{'='*40}")
+            elif adj_type == 'm':
+                print(f"\n{'='*40}")
+                print(f"{'RUNNING ARR (ADJ MATRIX) DIJKSTRA':^40}")
+                print(f"{name:^40}")
+                print(f"{'='*40}")
         else:
             # Error in case call is made incorrectly for debug, should never be seen by user
             sys.exit("ERROR! Function run_dijkstra was called improperly!!\n"
@@ -56,15 +64,21 @@ def run_dijkstra(dijkstra_type, adj_type):
               #print("ARR - ADJ MAT")
               distances, parents = arr_dijkstra(adj_mat, adj_type, len(nodes), src_idx)
         
-        # Output the shortest path results
+      # Output the shortest path results
         print(f"Shortest Paths from Source '{src_node}':")
+        
+        path_outputs = []
+        max_path_len = 0
+
+        # Pass 1: Construct path strings and find the maximum length
         for i in range(len(nodes)):
             target_node = reverse_index[i]
             dist = distances[i]
             
             # Handle unreachable nodes
             if dist == sys.maxsize:
-                print(f"Path to {target_node}: Unreachable")
+                path_prefix = f"Path to {target_node}: Unreachable"
+                distance_suffix = ""
             else:
                 # Reconstruct the path using the parent array
                 path = []
@@ -74,12 +88,30 @@ def run_dijkstra(dijkstra_type, adj_type):
                     curr = parents[curr]
                 path.reverse()
                 
-                # Format and print the final path string
+                # Format the path prefix
                 path_str = " -> ".join(str(n) for n in path)
-                print(f"Path to {target_node}: {path_str} (Distance: {dist})")
+                path_prefix = f"Path to {target_node}: {path_str}"
+                distance_suffix = f"  Distance: {dist}"
+            
+            # Store the components and track the longest path string
+            path_outputs.append((path_prefix, distance_suffix))
+            if len(path_prefix) > max_path_len:
+                max_path_len = len(path_prefix)
+        
+        # Pass 2: Format and combine into a single string
+        final_output_lines = []
+        for prefix, suffix in path_outputs:
+            if suffix:
+                # Left-align the prefix to max_path_len to push the suffix to the right
+                final_output_lines.append(f"{prefix:<{max_path_len}} {suffix}")
+            else:
+                final_output_lines.append(prefix)
+                
+        # Output all results at once
+        print("\n".join(final_output_lines))
 
 def run_performance_experiments():
-    from benchmarker import GraphBenchmarker
+    from src.benchmarker import GraphBenchmarker
     bench = GraphBenchmarker()
     bench.run_benchmarks()
 
@@ -139,28 +171,72 @@ def test_priority_queue():
             print(f"Vertex Index: {item[1]} | Distance: {item[0]}")
 
 def main():
-    # Setup argument parser to select execution mode
-    parser = argparse.ArgumentParser(description="CS361 Project 2: Dijkstra Implementations")
-    parser.add_argument(
-        'mode', 
-        choices=['test_pq', 'pq_dijkstra', 'arr_dijkstra_list', 'arr_dijkstra_mat', 'benchmark'],
-        help="Select the execution mode."
+    parser = argparse.ArgumentParser(
+        description="CS361 Project 2: Dijkstra Implementations",
+        formatter_class=argparse.ArgumentDefaultsHelpFormatter
     )
     
-    # Parse command line arguments
-    args = parser.parse_args()
+    subparsers = parser.add_subparsers(
+        dest="mode", 
+        required=True, 
+        title="Execution Modes", 
+        metavar="COMMAND"
+    )
 
-    # Execute the chosen mode
-    if args.mode == 'test_pq':
-        test_priority_queue()
-    elif args.mode == 'pq_dijkstra':
-        run_dijkstra('p', 'l')
-    elif args.mode == 'arr_dijkstra_list':
-        run_dijkstra('a', 'l') 
-    elif args.mode == 'arr_dijkstra_mat':
-        run_dijkstra('a', 'm')
-    elif args.mode == 'benchmark':
-        run_performance_experiments()
+    # test_pq
+    parser_test = subparsers.add_parser(
+        'test', 
+        aliases=['pqt', 'pq_test'], 
+        help="Run Priority Queue insertion and extraction tests"
+    )
+    parser_test.set_defaults(func=lambda _: test_priority_queue())
+
+    # pq_dijkstra
+    parser_pq = subparsers.add_parser(
+        'minheap', 
+        aliases=['pq', 'pq_dijkstra'], 
+        help="Execute Dijkstra's algorithm using a Min-Heap Priority Queue (Adjacency List)"
+    )
+    parser_pq.set_defaults(func=lambda _: run_dijkstra('p', 'l'))
+
+    # arr_dijkstra_list
+    parser_arr_l = subparsers.add_parser(
+        'arrlist', 
+        aliases=['al', 'arr_dijkstra_list'], 
+        help="Execute Dijkstra's using an Array-based Priority Queue (Adjacency List)"
+    )
+    parser_arr_l.set_defaults(func=lambda _: run_dijkstra('a', 'l'))
+
+    # arr_dijkstra_mat
+    parser_arr_m = subparsers.add_parser(
+        'arrmat', 
+        aliases=['am', 'arr_dijkstra_mat'], 
+        help="Execute Dijkstra's using an Array-based Priority Queue (Adjacency Matrix)"
+    )
+    parser_arr_m.set_defaults(func=lambda _: run_dijkstra('a', 'm'))
+
+    # benchmark
+    parser_bench = subparsers.add_parser(
+        'bench', 
+        aliases=['b', 'benchmark'], 
+        help="Run GraphBenchmarker performance experiments"
+    )
+    parser_bench.set_defaults(func=lambda _: run_performance_experiments())
+
+    def custom_error(message):
+          if "invalid choice" in message:
+              print(f"\nERROR: Unrecognized command.")
+              print(f"Please use one of the valid execution modes.")
+              print(f"Run 'python main.py --help' to see all available commands.\n")
+          else:
+              print(f"\n❌ ERROR: {message}\n")
+          sys.exit(1)
+          
+    parser.error = custom_error
+
+    # Parse and execute
+    args = parser.parse_args()
+    args.func(args)
 
 if __name__ == "__main__":
     main()

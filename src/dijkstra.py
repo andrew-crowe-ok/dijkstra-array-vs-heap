@@ -1,5 +1,5 @@
 import sys
-from priority_queue import DijkstraMinHeap
+from src.priority_queue import DijkstraMinHeap
 
 def pq_dijkstra(adj_list, num_vertices, src_vertex):
     distances = [sys.maxsize] * num_vertices
