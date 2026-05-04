@@ -61,7 +61,7 @@ def run_dijkstra(dijkstra_type, adj_type):
             elif(adj_type == 'm'):
               distances, parents = arr_dijkstra(adj_mat, adj_type, len(nodes), src_idx)
         
-      # Output the shortest path results
+        # Output the shortest path results
         print(f"Shortest Paths from Source '{src_node}':")
         
         path_outputs = []

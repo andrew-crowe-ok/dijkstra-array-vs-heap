@@ -2,9 +2,9 @@ import sys
 from src.priority_queue import DijkstraMinHeap
 
 def pq_dijkstra(adj_list, num_vertices, src_vertex):
-    distances = [sys.maxsize] * num_vertices
-    parents = [-1] * num_vertices # Initialize parents array
-    distances[src_vertex] = 0
+    distances = [sys.maxsize] * num_vertices  # Initialize path weight
+    parents = [-1] * num_vertices             # Initialize parents array
+    distances[src_vertex] = 0                 # Initialize start node (always 0)
     
     pq = DijkstraMinHeap(max_vertices=num_vertices)
     
@@ -28,37 +28,37 @@ def pq_dijkstra(adj_list, num_vertices, src_vertex):
     return distances, parents # Return both arrays
 
 def arr_dijkstra(adj, adj_type, num_vertices, src_vertex):
-    dist = [sys.maxsize] * num_vertices # Initialize path weight
-    visited = [False] * num_vertices    # Has the node been vistied
-    parent = [-1] * num_vertices        # Initialize parents array
-    dist[src_vertex] = 0                # Initialize start node (always 0)
+    distances = [sys.maxsize] * num_vertices # Initialize path weight
+    visited = [False] * num_vertices         # Has the node been vistied
+    parent = [-1] * num_vertices             # Initialize parents array
+    distances[src_vertex] = 0                # Initialize start node (always 0)
 
     for _ in range(num_vertices):
         u = -1
         for v in range(num_vertices):
             # Find smallest unvisited node
-            if not visited[v] and (u == -1 or dist[v] < dist[u]):
+            if not visited[v] and (u == -1 or distances[v] < distances[u]):
                 u = v
         
         # Early exit if all remaining vertices are unreachable
-        if dist[u] == sys.maxsize : break
+        if distances[u] == sys.maxsize : break
 
         # This node has now been visited
         visited[u] = True
 
         # Run adj list
         if adj_type == 'l':
-            arr_list(adj, u, dist, parent)
+            arr_list(adj, u, distances, parent)
         # Run adj matrix
         elif adj_type == 'm':
-            arr_mat(adj, u, dist, num_vertices, parent)
+            arr_mat(adj, u, distances, num_vertices, parent)
         else:
             # Error in case call is made incorrectly for debug, should never be seen by user
             sys.exit("ERROR! Function arr_dijkstra was called improperly!!\n"
                       "Should be called with 'l' for list or 'm' for matrix respectively!")
 
     # Returns distance and path taken
-    return dist, parent
+    return distances, parent
 
 def arr_list(adj_list, u, dist, parent):
     for v, weight in adj_list[u]:
