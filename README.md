@@ -12,11 +12,11 @@ Execute the program from the command line by passing the desired operating mode:
 
 **Available Modes:**
 
-* `test` (aliases: `pqt`, `pq_test`): Run Priority Queue insertion and extraction tests.
-* `minheap` (aliases: `pq`, `pq_dijkstra`): Execute Dijkstra's algorithm using a Min-Heap Priority Queue (Adjacency List).
-* `arrlist` (aliases: `al`, `arr_dijkstra_list`): Execute Dijkstra's using an Array-based Priority Queue (Adjacency List).
-* `arrmat` (aliases: `am`, `arr_dijkstra_mat`): Execute Dijkstra's using an Array-based Priority Queue (Adjacency Matrix).
-* `bench` (aliases: `b`, `benchmark`): Run GraphBenchmarker performance experiments.
+* `test` (alias: `pqt`): Run Priority Queue insertion and extraction tests.
+* `minheap` (alias: `pq`): Execute Dijkstra's algorithm using a Min-Heap Priority Queue (Adjacency List).
+* `arrlist` (alias: `al`): Execute Dijkstra's using an Array-based Priority Queue (Adjacency List).
+* `arrmat` (alias: `am`): Execute Dijkstra's using an Array-based Priority Queue (Adjacency Matrix).
+* `bench` (alias: `b`): Run GraphBenchmarker performance experiments.
 
 ## Progress Tracker  
 ### 4.1
@@ -26,9 +26,9 @@ Execute the program from the command line by passing the desired operating mode:
 * Dynamic dense graph generator implemented - *Nathan*
 * Min-heap priority queue implemented - *Andrew*
 * PQ Dijkstra implemented - *Andrew*
-* Array Dijkstra implemented - *Nathan*
-* Benchmarking suite implemented  - *Andrew*
+* Array Dijkstras implemented - *Nathan*
 ### 4.4 - 4.5
+* Benchmarking suite implemented  - *Andrew*
 * Record and analyze benchmark data - *Nathan*
 
 ## TODO
