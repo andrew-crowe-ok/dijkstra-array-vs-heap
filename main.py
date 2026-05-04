@@ -52,16 +52,13 @@ def run_dijkstra(dijkstra_type, adj_type):
         
         # Execute Dijkstra's algorithm to get shortest paths and parent array
         if(dijkstra_type == 'p'):
-            #print("PQ - ADJ LIST")
             distances, parents = pq_dijkstra(adj_list, len(nodes), src_idx)
         elif(dijkstra_type == 'a'):
-            # FIX: added a nested if/elif here, ensuring that the
+            # Nested if/elif here, ensuring that the
             # correct adjacency structure is passed to arr_dijkstra()
             if(adj_type == 'l'):
-              #print("ARR - ADJ LIST")
               distances, parents = arr_dijkstra(adj_list, adj_type, len(nodes), src_idx)
             elif(adj_type == 'm'):
-              #print("ARR - ADJ MAT")
               distances, parents = arr_dijkstra(adj_mat, adj_type, len(nodes), src_idx)
         
       # Output the shortest path results
