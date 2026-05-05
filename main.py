@@ -252,7 +252,7 @@ def main():
           if "invalid choice" in message:
               print(f"\nERROR: Unrecognized command.")
               print(f"Please use one of the valid execution modes.")
-              print(f"Run 'python main.py --help' to see all available commands.\n")
+              print(f"Run 'python3 main.py --help' to see all available commands.\n")
           else:
               print(f"\nERROR: {message}\n")
           sys.exit(1)
