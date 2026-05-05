@@ -9,7 +9,8 @@ from src.graph_data import (
     SPARSE_NODES_TWO, SPARSE_EDGES_TWO,
     DENSE_NODES_ONE, DENSE_EDGES_ONE,
     DENSE_NODES_TWO, DENSE_EDGES_TWO,
-    get_dense_graph_rand
+    get_dense_graph_rand,
+    DENSE_NODES_NM, DENSE_EDGES_NM
 )
 
 def run_dijkstra(dijkstra_type, adj_type):
@@ -126,7 +127,8 @@ def get_test_graphs():
         ("Sparse Graph Two", SPARSE_NODES_TWO, SPARSE_EDGES_TWO),
         ("Dense Graph One", DENSE_NODES_ONE, DENSE_EDGES_ONE),
         ("Dense Graph Two", DENSE_NODES_TWO, DENSE_EDGES_TWO),
-        ("Dynamic Dense Graph", dense_dyn_nodes, dense_dyn_edges)
+        ("Dynamic Dense Graph", dense_dyn_nodes, dense_dyn_edges),
+        ("New Mexico Dense Graph", DENSE_NODES_NM, DENSE_EDGES_NM)
     ]
     return test_graphs
 

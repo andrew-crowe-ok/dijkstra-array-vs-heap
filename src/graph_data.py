@@ -32,6 +32,15 @@ DENSE_EDGES_TWO = [
     (3,5,6), (3,6,5), (4,5,2), (4,6,4), (5,6,1)
 ]
 
+# Dense Graph Four
+DENSE_NODES_NM = {"Albuquerque","Santa Fe","Gallup","Tucumcari","Roswell","Raton","Farmington","Silver City"}
+DENSE_EDGES_NM = [
+    ("Albuquerque","Santa Fe",2),("Albuquerque","Raton",5),("Albuquerque","Tucumcari",6),("Albuquerque","Gallup",5),
+    ("Santa Fe","Farmington",4),("Santa Fe","Raton",12),("Gallup","Farmington",5),("Gallup","Raton",15),
+    ("Gallup","Silver City",5),("Tucumcari","Raton",5),("Tucumcari","Roswell",5),("Tucumcari","Farmington",12),
+    ("Roswell","Raton",9),("Roswell","Silver City",5),("Raton","Farmington",8)
+]
+
 # Generate spanning tree, sparse graph
 def get_spanning_tree_graph(seed=37):
     # Randomly generated graph
