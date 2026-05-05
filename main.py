@@ -108,6 +108,22 @@ def run_dijkstra(dijkstra_type, adj_type):
         # Output all results at once
         print("\n".join(final_output_lines))
 
+        # print off graph stats
+        num_vertices = len(nodes)
+        num_edges    = len(edges)
+        max_edges    = num_vertices * (num_vertices - 1) // 2
+        density      = num_edges / max_edges if max_edges > 0 else 0  
+
+        sep   = "-" * 40
+        stats = (
+            f"\n{sep}\n"
+            f"  Vertices : {num_vertices}\n"
+            f"  Edges    : {num_edges}\n"
+            f"  Density  : {density:.1%}  ({num_edges}/{max_edges} possible edges)\n"
+            f"{sep}"
+        )
+        print(stats)
+
 def run_performance_experiments():
     from src.benchmarker import GraphBenchmarker
     bench = GraphBenchmarker()

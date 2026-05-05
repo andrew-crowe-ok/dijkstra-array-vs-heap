@@ -147,14 +147,14 @@ def get_dense_graph_rand(num_vertices=18, density=0.7, weight_range=(1, 20), see
     # Create priority queue min heap
     # Reuses Dijkstra pq as Prim's algo can also use a pq min heap
     pq = DijkstraMinHeap(num_vertices)
-    DENSE_EDGE_SET, DENSE_EDGES_THREE = build_spantree_prim(num_vertices, weight_range, pq)
+    DENSE_NODES_THREE, DENSE_EDGES_THREE = build_spantree_prim(num_vertices, weight_range, pq)
 
     max_edges    = num_vertices * (num_vertices - 1) // 2 # We want a dense graph
     target       = int(max_edges * density)               # how dense the graph should be                       
     max_attempts = target * 10                            # Ensures no infinite loops
 
     attempts = 0
-    while len(DENSE_EDGE_SET) < target and attempts < max_attempts:
+    while len(DENSE_NODES_THREE) < target and attempts < max_attempts:
         u = random.randint(0, num_vertices - 1)
         v = random.randint(0, num_vertices - 1)
 
@@ -165,22 +165,22 @@ def get_dense_graph_rand(num_vertices=18, density=0.7, weight_range=(1, 20), see
 
         key = (min(v, u), max(v, u))
         # Skip duplicate edges
-        if key in DENSE_EDGE_SET:
+        if key in DENSE_NODES_THREE:
             attempts += 1
             continue
 
         weight = random.randint(*weight_range)
-        DENSE_EDGE_SET.add(key)
+        DENSE_NODES_THREE.add(key)
         DENSE_EDGES_THREE.append((u, v, weight))
         attempts = 0 # Reset
 
     print(f"\n{'='*40}")
     print(f"GENERATING DENSE GRAPH")
     print(f"{'='*40}")
-    actual_density = len(DENSE_EDGE_SET) / max_edges if max_edges > 0 else 0
+    actual_density = len(DENSE_NODES_THREE) / max_edges if max_edges > 0 else 0
     print(f"Nodes              : {num_vertices}")
     print(f"Max possible edges : {max_edges}")
     print(f"Target edges       : {target}  ({density*100:.0f}% density)")
-    print(f"Actual edges       : {len(DENSE_EDGE_SET)}  ({actual_density*100:.1f}% density)")
+    print(f"Actual edges       : {len(DENSE_NODES_THREE)}  ({actual_density*100:.1f}% density)")
 
     return DENSE_GRAPH_THREE, DENSE_EDGES_THREE
