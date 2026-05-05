@@ -42,6 +42,13 @@ DENSE_EDGES_NM = [
 ]
 
 # Generate spanning tree, sparse graph
+'''
+This has gone unused as it was replaced by get_dense_graph_rand,
+left in as it got use in the beginning of the project as is relevant
+to the report. Initially this was going to be reused as a third
+sparse graph but it breaks for unknown resons with the current 
+implementation and is not necessary to the requirements
+'''
 def get_spanning_tree_graph(seed=37):
     # Randomly generated graph
     # build random (seeded for repeatable results)
@@ -80,27 +87,29 @@ def get_spanning_tree_graph(seed=37):
 
     return DENSE_GRAPH_THREE, DENSE_EDGES_THREE
 
-# Generate graph via prim's algo
+# Generate a minimum spanning tree (MST) via Prim's algorithm
 def build_spantree_prim(num_vertices, weight_range, pq):
     distances = [sys.maxsize] * num_vertices # Initialize path weight
     visited = [False] * num_vertices         # Has the node been vistied
     parent = [-1] * num_vertices             # Initialize parents array
 
-    # Insert all with infinity
+    # Insert all with "infinity"
     for v in range(num_vertices):
         pq.insertKey(v, sys.maxsize)
 
-    # Start from node 0, 0
+    # Start MST at node 0, 0
     pq.decreaseKey(0, 0)
 
-    edges_set = set()
-    edge_list = []
+    edges_set = set() # Unique edges
+    edge_list = []    # Stores edges and weights
 
+    # Main loop of Prim's, continue until all nodes are in MST
     while not pq.is_empty():
         min_node = pq.extractMin()
         if min_node is None:
             break
         
+        # unpack node (weight, vertex)
         _, u =  min_node
         visited[u] = True
 
@@ -110,11 +119,12 @@ def build_spantree_prim(num_vertices, weight_range, pq):
             key = (min(p, u), max(p, u))
             if key not in edges_set:
                 edges_set.add(key)
-                edge_list.append((p, u, weight))
+                edge_list.append((p, u, weight)) # (parent, child, weight)
         
+        # Update distances
         for v in range(num_vertices):
             if not visited[v] and pq.isInMinHeap(v):
-                weight = random.randint(*weight_range)
+                weight = random.randint(*weight_range) # Generate random edge weight
                 current_key = pq.harr[pq.pos[v]][0]
                 if weight < current_key:      # only update if this edge is cheaper
                     parent[v] = u
@@ -124,15 +134,18 @@ def build_spantree_prim(num_vertices, weight_range, pq):
     return edges_set, edge_list
 
 # Create and return graph
+# Dense graph 3
 def get_dense_graph_rand(num_vertices=18, density=0.7, weight_range=(1, 20), seed=37):
     # Randomly generated graph
     # build random (seeded for repeatable results)
     if seed is not None:
         random.seed(seed)
     
-    # create all nodes
+    # Create all nodes
     DENSE_GRAPH_THREE = set(range(num_vertices))
 
+    # Create priority queue min heap
+    # Reuses Dijkstra pq as Prim's algo can also use a pq min heap
     pq = DijkstraMinHeap(num_vertices)
     DENSE_EDGE_SET, DENSE_EDGES_THREE = build_spantree_prim(num_vertices, weight_range, pq)
 
@@ -145,11 +158,13 @@ def get_dense_graph_rand(num_vertices=18, density=0.7, weight_range=(1, 20), see
         u = random.randint(0, num_vertices - 1)
         v = random.randint(0, num_vertices - 1)
 
+        # Check for loop
         if u == v:
             attempts += 1
             continue
 
         key = (min(v, u), max(v, u))
+        # Skip duplicate edges
         if key in DENSE_EDGE_SET:
             attempts += 1
             continue
@@ -157,7 +172,7 @@ def get_dense_graph_rand(num_vertices=18, density=0.7, weight_range=(1, 20), see
         weight = random.randint(*weight_range)
         DENSE_EDGE_SET.add(key)
         DENSE_EDGES_THREE.append((u, v, weight))
-        attempts = 0 # reset
+        attempts = 0 # Reset
 
     print(f"\n{'='*40}")
     print(f"GENERATING DENSE GRAPH")

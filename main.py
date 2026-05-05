@@ -115,9 +115,6 @@ def run_performance_experiments():
 
 def get_test_graphs():
     # NOTE: Random graphs are preset in graph_data
-    # Generate sparse spanning tree
-    #span_dyn_nodes, span_dyn_edges = get_spannying_tree_graph()
-
     # Generate a third dense graph
     dense_dyn_nodes, dense_dyn_edges = get_dense_graph_rand()
 

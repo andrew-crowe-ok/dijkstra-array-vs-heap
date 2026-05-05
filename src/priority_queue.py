@@ -1,16 +1,15 @@
-import sys
-
 class DijkstraMinHeap:
     def __init__(self, max_vertices, debug=False):
         self.capacity = max_vertices
-        self.size = 0
-        self.harr = []  # Stores [distance, vertex]
+        self.size = 0                   # Elements in the heap
+        self.harr = []                  # Stores [distance, vertex]
         self.pos = [-1] * max_vertices  # Maps vertex ID to its index in harr
         self.debug = debug
 
-    def parent(self, i): return (i - 1) // 2
-    def left(self, i): return 2 * i + 1
-    def right(self, i): return 2 * i + 2
+    # Helper methods
+    def parent(self, i): return (i - 1) // 2 # parent node index
+    def left(self, i): return 2 * i + 1      # left child index
+    def right(self, i): return 2 * i + 2     # right child index
 
     def is_empty(self):
         return self.size == 0
@@ -34,13 +33,14 @@ class DijkstraMinHeap:
 
     def extractMin(self):
         if self.is_empty(): return None
-        root = self.harr[0]
+        root = self.harr[0]        # min dist root node
         last_node = self.harr[self.size - 1]
         self.harr[0] = last_node
-        self.pos[last_node[1]] = 0
-        self.pos[root[1]] = -1
+        self.pos[last_node[1]] = 0 # update pos map
+        self.pos[root[1]] = -1     # mark extracted as removed
         self.size -= 1
-        self.harr.pop()
+        self.harr.pop()            # remove last
+        # Restore min heap
         if self.size > 0:
             self.minHeapify(0)
         return root
@@ -54,14 +54,15 @@ class DijkstraMinHeap:
             i = self.parent(i)
 
     def insertKey(self, vertex, dist):
-        if self.size == self.capacity: return
+        if self.size == self.capacity: return # heap is full
         self.harr.append([dist, vertex])
         i = self.size
         self.pos[vertex] = i
         self.size += 1
+        # Bubble up to resotre heap property
         while i != 0 and self.harr[self.parent(i)][0] > self.harr[i][0]:
             self.swap(i, self.parent(i))
             i = self.parent(i)
-            
+
     def isInMinHeap(self, vertex):
         return self.pos[vertex] != -1 if vertex < len(self.pos) else False
