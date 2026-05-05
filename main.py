@@ -1,5 +1,6 @@
 import sys
 import argparse
+import time
 from src.priority_queue import DijkstraMinHeap
 from src.dijkstra import pq_dijkstra, arr_dijkstra
 from src.graph_utils import add_adj_list_edge, print_adj_list
@@ -53,15 +54,23 @@ def run_dijkstra(dijkstra_type, adj_type):
         
         # Execute Dijkstra's algorithm to get shortest paths and parent array
         if(dijkstra_type == 'p'):
+            start = time.perf_counter()
             distances, parents = pq_dijkstra(adj_list, len(nodes), src_idx)
+            elapsed = time.perf_counter() - start
         elif(dijkstra_type == 'a'):
             # Nested if/elif here, ensuring that the
             # correct adjacency structure is passed to arr_dijkstra()
             if(adj_type == 'l'):
+              start = time.perf_counter()
               distances, parents = arr_dijkstra(adj_list, adj_type, len(nodes), src_idx)
+              elapsed = time.perf_counter() - start
             elif(adj_type == 'm'):
+              start = time.perf_counter()
               distances, parents = arr_dijkstra(adj_mat, adj_type, len(nodes), src_idx)
-        
+              elapsed = time.perf_counter() - start
+        # print time to run dijkstra
+        print(f"Runtime: {elapsed:.6f}s")
+
         # Output the shortest path results
         print(f"Shortest Paths from Source '{src_node}':")
         
