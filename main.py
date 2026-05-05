@@ -9,7 +9,7 @@ from src.graph_data import (
     SPARSE_NODES_TWO, SPARSE_EDGES_TWO,
     DENSE_NODES_ONE, DENSE_EDGES_ONE,
     DENSE_NODES_TWO, DENSE_EDGES_TWO,
-    get_dense_graph_three
+    get_dense_graph_rand
 )
 
 def run_dijkstra(dijkstra_type, adj_type):
@@ -113,8 +113,12 @@ def run_performance_experiments():
     bench.run_benchmarks()
 
 def get_test_graphs():
+    # NOTE: Random graphs are preset in graph_data
+    # Generate sparse spanning tree
+    #span_dyn_nodes, span_dyn_edges = get_spannying_tree_graph()
+
     # Generate a third dense graph
-    dyn_nodes, dyn_edges = get_dense_graph_three()
+    dense_dyn_nodes, dense_dyn_edges = get_dense_graph_rand()
 
     # Groups all the graphs into a list for processing
     test_graphs = [
@@ -122,7 +126,7 @@ def get_test_graphs():
         ("Sparse Graph Two", SPARSE_NODES_TWO, SPARSE_EDGES_TWO),
         ("Dense Graph One", DENSE_NODES_ONE, DENSE_EDGES_ONE),
         ("Dense Graph Two", DENSE_NODES_TWO, DENSE_EDGES_TWO),
-        ("Dynamic Dense Graph", dyn_nodes, dyn_edges)
+        ("Dynamic Dense Graph", dense_dyn_nodes, dense_dyn_edges)
     ]
     return test_graphs
 
