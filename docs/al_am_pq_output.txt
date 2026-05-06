@@ -10,7 +10,8 @@ Actual edges       : 107  (69.9% density)
     RUNNING ARR (ADJ LIST) DIJKSTRA     
             Sparse Graph One            
 ========================================
-Runtime: 0.000011s
+Runtime: 0.000031s
+Peak memory: 0.28 KB
 Shortest Paths from Source 'A':
 Path to A: A                       Distance: 0
 Path to B: A -> B                  Distance: 4
@@ -29,7 +30,8 @@ Path to F: A -> C -> D -> E -> F   Distance: 8
     RUNNING ARR (ADJ LIST) DIJKSTRA     
             Sparse Graph Two            
 ========================================
-Runtime: 0.000007s
+Runtime: 0.000015s
+Peak memory: 0.30 KB
 Shortest Paths from Source '1':
 Path to 1: 1                  Distance: 0
 Path to 2: 1 -> 2             Distance: 3
@@ -49,7 +51,8 @@ Path to 7: 1 -> 2 -> 5 -> 7   Distance: 9
     RUNNING ARR (ADJ LIST) DIJKSTRA     
             Dense Graph One             
 ========================================
-Runtime: 0.000006s
+Runtime: 0.000012s
+Peak memory: 0.26 KB
 Shortest Paths from Source 'A':
 Path to A: A             Distance: 0
 Path to B: A -> B        Distance: 2
@@ -67,7 +70,8 @@ Path to E: A -> D -> E   Distance: 3
     RUNNING ARR (ADJ LIST) DIJKSTRA     
             Dense Graph Two             
 ========================================
-Runtime: 0.000006s
+Runtime: 0.000013s
+Peak memory: 0.28 KB
 Shortest Paths from Source '1':
 Path to 1: 1             Distance: 0
 Path to 2: 1 -> 2        Distance: 3
@@ -86,7 +90,8 @@ Path to 6: 1 -> 6        Distance: 4
     RUNNING ARR (ADJ LIST) DIJKSTRA     
           Dynamic Dense Graph           
 ========================================
-Runtime: 0.000022s
+Runtime: 0.000037s
+Peak memory: 0.56 KB
 Shortest Paths from Source '0':
 Path to 0: 0                           Distance: 0
 Path to 1: 0 -> 17 -> 3 -> 1           Distance: 4
@@ -117,7 +122,8 @@ Path to 17: 0 -> 17                    Distance: 2
     RUNNING ARR (ADJ LIST) DIJKSTRA     
          New Mexico Dense Graph         
 ========================================
-Runtime: 0.000007s
+Runtime: 0.000016s
+Peak memory: 0.33 KB
 Shortest Paths from Source 'Albuquerque':
 Path to Albuquerque: Albuquerque                            Distance: 0
 Path to Farmington: Albuquerque -> Santa Fe -> Farmington   Distance: 6
@@ -147,7 +153,8 @@ Actual edges       : 107  (69.9% density)
    RUNNING ARR (ADJ MATRIX) DIJKSTRA    
             Sparse Graph One            
 ========================================
-Runtime: 0.000011s
+Runtime: 0.000034s
+Peak memory: 0.28 KB
 Shortest Paths from Source 'A':
 Path to A: A                       Distance: 0
 Path to B: A -> B                  Distance: 4
@@ -166,7 +173,8 @@ Path to F: A -> C -> D -> E -> F   Distance: 8
    RUNNING ARR (ADJ MATRIX) DIJKSTRA    
             Sparse Graph Two            
 ========================================
-Runtime: 0.000007s
+Runtime: 0.000022s
+Peak memory: 0.30 KB
 Shortest Paths from Source '1':
 Path to 1: 1                  Distance: 0
 Path to 2: 1 -> 2             Distance: 3
@@ -186,7 +194,8 @@ Path to 7: 1 -> 2 -> 5 -> 7   Distance: 9
    RUNNING ARR (ADJ MATRIX) DIJKSTRA    
             Dense Graph One             
 ========================================
-Runtime: 0.000005s
+Runtime: 0.000018s
+Peak memory: 0.26 KB
 Shortest Paths from Source 'A':
 Path to A: A             Distance: 0
 Path to B: A -> B        Distance: 2
@@ -204,7 +213,8 @@ Path to E: A -> D -> E   Distance: 3
    RUNNING ARR (ADJ MATRIX) DIJKSTRA    
             Dense Graph Two             
 ========================================
-Runtime: 0.000006s
+Runtime: 0.000015s
+Peak memory: 0.28 KB
 Shortest Paths from Source '1':
 Path to 1: 1             Distance: 0
 Path to 2: 1 -> 2        Distance: 3
@@ -223,7 +233,8 @@ Path to 6: 1 -> 6        Distance: 4
    RUNNING ARR (ADJ MATRIX) DIJKSTRA    
           Dynamic Dense Graph           
 ========================================
-Runtime: 0.000028s
+Runtime: 0.000047s
+Peak memory: 0.56 KB
 Shortest Paths from Source '0':
 Path to 0: 0                           Distance: 0
 Path to 1: 0 -> 17 -> 3 -> 1           Distance: 4
@@ -254,7 +265,8 @@ Path to 17: 0 -> 17                    Distance: 2
    RUNNING ARR (ADJ MATRIX) DIJKSTRA    
          New Mexico Dense Graph         
 ========================================
-Runtime: 0.000009s
+Runtime: 0.000019s
+Peak memory: 0.33 KB
 Shortest Paths from Source 'Albuquerque':
 Path to Albuquerque: Albuquerque                            Distance: 0
 Path to Farmington: Albuquerque -> Santa Fe -> Farmington   Distance: 6
@@ -284,7 +296,8 @@ Actual edges       : 107  (69.9% density)
         RUNNING MINHEAP DIJKSTRA        
             Sparse Graph One            
 ========================================
-Runtime: 0.000018s
+Runtime: 0.000038s
+Peak memory: 0.70 KB
 Shortest Paths from Source 'A':
 Path to A: A                       Distance: 0
 Path to B: A -> B                  Distance: 4
@@ -303,7 +316,8 @@ Path to F: A -> C -> D -> E -> F   Distance: 8
         RUNNING MINHEAP DIJKSTRA        
             Sparse Graph Two            
 ========================================
-Runtime: 0.000016s
+Runtime: 0.000028s
+Peak memory: 0.79 KB
 Shortest Paths from Source '1':
 Path to 1: 1                  Distance: 0
 Path to 2: 1 -> 2             Distance: 3
@@ -323,7 +337,8 @@ Path to 7: 1 -> 2 -> 5 -> 7   Distance: 9
         RUNNING MINHEAP DIJKSTRA        
             Dense Graph One             
 ========================================
-Runtime: 0.000013s
+Runtime: 0.000024s
+Peak memory: 0.59 KB
 Shortest Paths from Source 'A':
 Path to A: A             Distance: 0
 Path to B: A -> B        Distance: 2
@@ -341,7 +356,8 @@ Path to E: A -> D -> E   Distance: 3
         RUNNING MINHEAP DIJKSTRA        
             Dense Graph Two             
 ========================================
-Runtime: 0.000015s
+Runtime: 0.000026s
+Peak memory: 0.62 KB
 Shortest Paths from Source '1':
 Path to 1: 1             Distance: 0
 Path to 2: 1 -> 2        Distance: 3
@@ -360,7 +376,8 @@ Path to 6: 1 -> 6        Distance: 4
         RUNNING MINHEAP DIJKSTRA        
           Dynamic Dense Graph           
 ========================================
-Runtime: 0.000055s
+Runtime: 0.000077s
+Peak memory: 1.92 KB
 Shortest Paths from Source '0':
 Path to 0: 0                           Distance: 0
 Path to 1: 0 -> 17 -> 3 -> 1           Distance: 4
@@ -391,7 +408,8 @@ Path to 17: 0 -> 17                    Distance: 2
         RUNNING MINHEAP DIJKSTRA        
          New Mexico Dense Graph         
 ========================================
-Runtime: 0.000019s
+Runtime: 0.000030s
+Peak memory: 0.69 KB
 Shortest Paths from Source 'Albuquerque':
 Path to Albuquerque: Albuquerque                            Distance: 0
 Path to Farmington: Albuquerque -> Santa Fe -> Farmington   Distance: 6
@@ -406,4 +424,4 @@ Path to Tucumcari: Albuquerque -> Tucumcari                 Distance: 6
   Vertices : 8
   Edges    : 15
   Density  : 53.6%  (15/28 possible edges)
-----------------------------------------
+  ----------------------------------------
