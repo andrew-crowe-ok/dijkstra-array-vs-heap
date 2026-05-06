@@ -19,14 +19,18 @@ Execute the program from the command line by passing the desired operating mode:
 </br>
 Running benchmarks will create benchmark_results.csv. An R script, plot_benchmarks.R, was used to plot the data in R Studio. 
 
-# Files included
+# Files Included
 * `main.py` main file, runs the whole program
 * `plot_benchmarks.R` used to generate graphs
-## src folder
-* All source code
+## src Folder
+All source code
 * `dijkstra.py` runs both dijkstra implementations are
 * `graph_data.py` contains all example graphs and function to randomly generate a dense graph
 * `graph_utils.py` builds the adjacency matrices and lists
 * `priority_queue.py` priority queue for the pq dijkstra implementation
-## docs
+## docs Folder
 contains testing results and lab report
+* `plots` results from plot_benchmarks.R
+* `raw data` data from benchmarks(.csv file) terminal output from examples (.txt file)
+* `CS-361 Project 2 Report.pdf` the project report
+* `project-2-instructions.pdf` project parameters
